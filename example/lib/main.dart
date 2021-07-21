@@ -12,7 +12,12 @@ void main() {
   ));
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
+  @override
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
   double percentage = 0.0;
 
   @override
@@ -52,12 +57,12 @@ class MyApp extends StatelessWidget {
 
     return Scaffold(
       body: Center(
-        child: RaisedButton(
+        child: ElevatedButton(
+            style: ElevatedButton.styleFrom(primary: Colors.blue),
             child: Text(
               'Show Dialog',
               style: TextStyle(color: Colors.white),
             ),
-            color: Colors.blue,
             onPressed: () async {
               await pr.show();
 
@@ -131,10 +136,12 @@ class _FirstScreenState extends State<FirstScreen> {
 
     return Scaffold(
       body: Center(
-        child: RaisedButton(
+        child: OutlinedButton(
+          style: OutlinedButton.styleFrom(
+            primary: Colors.blueAccent,
+          ),
           child: Text('Show dialog and go to next screen',
               style: TextStyle(color: Colors.white)),
-          color: Colors.blueAccent,
           onPressed: () {
             pr.show();
             Future.delayed(Duration(seconds: 3)).then((value) {

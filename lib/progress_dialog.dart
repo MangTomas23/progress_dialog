@@ -15,7 +15,7 @@ Alignment _progressWidgetAlignment = Alignment.centerLeft;
 TextDirection _direction = TextDirection.ltr;
 
 bool _isShowing = false;
-BuildContext _context, _dismissingContext;
+late BuildContext _context, _dismissingContext;
 ProgressDialogType? _progressDialogType;
 bool _barrierDismissible = true, _showLogs = false;
 
@@ -39,10 +39,10 @@ class ProgressDialog {
 
   ProgressDialog(BuildContext context,
       {ProgressDialogType? type,
-        bool? isDismissible,
-        bool? showLogs,
-        TextDirection? textDirection,
-        Widget? customBody}) {
+      bool? isDismissible,
+      bool? showLogs,
+      TextDirection? textDirection,
+      Widget? customBody}) {
     _context = context;
     _progressDialogType = type ?? ProgressDialogType.Normal;
     _barrierDismissible = isDismissible ?? true;
@@ -211,39 +211,39 @@ class _BodyState extends State<_Body> {
     final text = Expanded(
       child: _progressDialogType == ProgressDialogType.Normal
           ? Text(
-        _dialogMessage,
-        textAlign: _textAlign,
-        style: _messageStyle,
-        textDirection: _direction,
-      )
+              _dialogMessage,
+              textAlign: _textAlign,
+              style: _messageStyle,
+              textDirection: _direction,
+            )
           : Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            SizedBox(height: 8.0),
-            Row(
-              children: <Widget>[
-                Expanded(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  SizedBox(height: 8.0),
+                  Row(
+                    children: <Widget>[
+                      Expanded(
+                          child: Text(
+                        _dialogMessage,
+                        style: _messageStyle,
+                        textDirection: _direction,
+                      )),
+                    ],
+                  ),
+                  SizedBox(height: 4.0),
+                  Align(
+                    alignment: Alignment.bottomRight,
                     child: Text(
-                      _dialogMessage,
-                      style: _messageStyle,
+                      "$_progress/$_maxProgress",
+                      style: _progressTextStyle,
                       textDirection: _direction,
-                    )),
-              ],
-            ),
-            SizedBox(height: 4.0),
-            Align(
-              alignment: Alignment.bottomRight,
-              child: Text(
-                "$_progress/$_maxProgress",
-                style: _progressTextStyle,
-                textDirection: _direction,
+                    ),
+                  ),
+                ],
               ),
             ),
-          ],
-        ),
-      ),
     );
 
     return _customBody ??
